@@ -3,10 +3,10 @@ before_action :set_image, only:  %i[show edit update destroy]
 
 def index 
     @images = Images.all
-
 end
 
-def show(params[:id])
+def show
+    render json: @images
 end
 
 def new
@@ -39,12 +39,10 @@ end
 
 private
     def set_image
-    @images = Images.find(paramas[:id])
-
+        @images = Images.find(params[:id])
     end
 
     def images_params
-    paramas.requiere(:images).permit(:title,:descriptionm images_file)
-    
+        params.require(:images).permit(:Url_image)
     end
 end

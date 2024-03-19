@@ -7,7 +7,7 @@ Rails.application.routes.draw do
 
   resources :users
 
-  resources :post
+  resources :posts
 
   resources :images
 

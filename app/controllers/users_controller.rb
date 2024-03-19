@@ -1,14 +1,13 @@
-class UserController < ApplicationController
+class UsersController < ApplicationController
     before_action :set_user, only: %i[show edit upadate destroy]
 
 def index
     @users = User.all
-    
+    render json: @users 
 end
 
 def show 
    @users = User.find(params[:id])
-
 end
 
 def new 
@@ -21,7 +20,10 @@ end
 def  create 
     @user = User.new(user_params)
     if @user.save
-        redirect_to user_url(@user)
+        render json: @user
+
+
+        
     else
         render :new
     end
@@ -44,12 +46,13 @@ end
 
 private 
 def set_user 
-    @user = User.find(find(params[:id]))
+    @user = User.find(params[:id])
 end
 
 
 def user_params
-    params.requiere(:user).permit(:username)
+    params.require(:user).permit(:username,:name)
     end
 end
+
 

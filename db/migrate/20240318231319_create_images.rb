@@ -1,4 +1,4 @@
-raclass CreateImages < ActiveRecord::Migration[7.1]
+class CreateImages < ActiveRecord::Migration[7.1]
   def change
     create_table :images do |t|
       t.text :Url_image

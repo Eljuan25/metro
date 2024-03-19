@@ -1,12 +1,14 @@
-class PostController < ApplicationController
-    before_action :set_post, only %i[show edit update destroy]
+class PostsController < ApplicationController
+    before_action :set_post, only: %i[show edit update destroy]
 
     def index
         @posts = Post.all
+        render json: @posts
     end
 
     def show
-        @posts = Post.find(params[:id])
+        @post = Post.find(params[:id])
+        render json:  @post
     end
     
     def new
@@ -19,11 +21,13 @@ class PostController < ApplicationController
 
     def create
         @post = Post.new(post_params)
+       # binding.break
 
         if @post.save
             redirect_to @post
         else 
-        render :new
+        
+        render json: @post.errors.full_messages
         end
     end
 
@@ -43,11 +47,10 @@ class PostController < ApplicationController
     private
  
     def set_post
-        @post = Post.fin(params[:id])
-
+        @post = Post.find(params[:id])
     end
 
     def post_params
-        params.requiere(:post).permit(:title, :content)
+        params.require(:post).permit(:descripcion,:user_id)
     end
 end
