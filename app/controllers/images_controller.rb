@@ -1,48 +1,52 @@
 class ImagesController < ApplicationController
-before_action :set_image, only:  %i[show edit update destroy]
-
-def index 
-    @images = Images.all
-end
-
-def show
-    render json: @images
-end
-
-def new
-    @images = Images.new
-end
-
-def edit
-end
-
-def create
-    @images = Images.new(images_params)
-    if @images.save
-        redirect_to @images
-    else
-        render :new
+    before_action :set_image, only: %i[show edit update destroy]
+  
+    def index 
+      @images = Image.all
     end
-end
-
-def upadate 
-    if @images.update(images_params)
-    else
-        render :edit
+  
+    def show
+      render json: @image
     end
-end
-
-def destroy
-    @images.destroy
-    redirect_to images_url
-end
-
-private
+  
+    def new
+      @image = Image.new
+    end
+  
+    def edit
+    end
+  
+    def create
+      @image = Image.new(image_params)
+      if @image.save
+        redirect_to @image
+      else
+       render json: @image
+      end
+    end
+  
+    def update 
+      if @image.update(image_params)
+        redirect_to @image
+        
+      else
+        render json: @image 
+      end
+    end
+  
+    def destroy
+      @image.destroy
+      redirect_to images_url
+    end
+  
+    private
     def set_image
-        @images = Images.find(params[:id])
+      @image = Image.find(params[:id])
     end
-
-    def images_params
-        params.require(:images).permit(:Url_image)
+  
+    def image_params
+      params.require(:images).permit(:Url_image,:post_id)
     end
-end
+  end
+  
+ 
